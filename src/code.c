@@ -159,9 +159,9 @@ Nodo *code_newNodo(Sentencia sentencia, TipoValor tipo,
 
 void code_error(Code *x, char *mensaje)
 {
-  printf("Error (%d:%d): %s %s\n",
+  printf("Error (%d:%d): %s, message: %s\n",
          x->iFila, x->iColumna,
-         mensaje, x->token->nombre);
+         x->token->nombre, mensaje);
   exit(0);
 }
 
@@ -187,10 +187,10 @@ void code_declVariable(Code *x, TipoValor tipo)
   int i = code_buscarVariable(x);
 
   if (i == -1)
-    code_error(x, "Se han definido demasiadas variables. Variable");
+    code_error(x, "Too many variables defined. ");
 
   if (x->vars[i] != NULL)
-    code_error(x, "Ya existe la variable");
+    code_error(x, "Already existing variable. ");
 
   Variable *v = x->vars[i] = (Variable *)malloc(sizeof(Variable));
   v->nombre = strdup(x->token->nombre);
@@ -231,7 +231,7 @@ void code_print(Code *x)
 void code_pushCtrl(Code *x, Nodo *n)
 {
   if (x->cimaCtrl == TAMANYO_CTRL) {
-    printf("Pila llena.\n");
+    printf("The stack is full. \n");
     exit(1);
   }
 
@@ -242,7 +242,7 @@ void code_pushCtrl(Code *x, Nodo *n)
 Nodo *code_popCtrl(Code *x)
 {
   if (x->cimaCtrl == 0) {
-    printf("Pila vacia.\n");
+    printf("The stack is empty. \n");
     exit(1);
   }
 
@@ -308,7 +308,7 @@ void code_variable(Code *x)
   Variable *v;
 
   if (i == -1 || !(v = x->vars[i]))
-    code_error(x, "No existe la variable");
+    code_error(x, "Variable doesn't exists. ");
 
   Nodo *nodo = code_newNodo(VARIABLE, v->tipo, v->valor, v->nombre);
   code_addNodo(x, nodo);
@@ -317,13 +317,13 @@ void code_variable(Code *x)
 void code_integer(Code *x)
 {
   if (strlen(x->token->nombre) > 10)
-    code_error(x, "Numero demasiado grande");
+    code_error(x, "Number too big. ");
 
   char *tail;
   long n = strtol(x->token->nombre, &tail, 0);
 
   if (n < INT_MIN || n > INT_MAX || tail[0] != '\0')
-    code_error(x, "Numero demasiado grande");
+    code_error(x, "Number too big. ");
 
   Nodo *nodo = code_newNodo(CONSTANTE, INTEGER, (void *)n, NULL);
   code_addNodo(x, nodo);
@@ -441,7 +441,7 @@ void code_get(Code *x)
         break;
 
       case CONSTANTE:
-        printf("cte   ");
+        printf("const ");
         break;
 
       case SUMAR:
@@ -525,7 +525,7 @@ void code_push(Code *x, TipoValor tipo, void *valor,
                char *variable, int liberar)
 {
   if (x->cimaPila == TAMANYO_PILA) {
-    printf("Pila llena.\n");
+    printf("The stack is full. \n");
     exit(1);
   }
 
@@ -541,7 +541,7 @@ void code_pop(Code *x, TipoValor *tipo, void **valor,
               int variable, int *liberar)
 {
   if (x->cimaPila == 0) {
-    printf("Pila vacia.\n");
+    printf("The stack is empty. \n");
     exit(1);
   }
 
@@ -555,7 +555,7 @@ void code_pop(Code *x, TipoValor *tipo, void **valor,
 void code_comprobarTipos(Nodo *n, TipoValor t1, TipoValor t2)
 {
   if (t1 != t2) {
-    printf("Tipos incompatibles en %d,%d\n", n->iFila, n->iColumna);
+    printf("Incompatible types in %d, %d. \n", n->iFila, n->iColumna);
     exit(1);
   }
 }

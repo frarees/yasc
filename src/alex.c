@@ -6,7 +6,7 @@ ALex *alex_open(char *fichero)
   FILE *file = fopen(fichero, "r");
 
   if (!file) {
-    fprintf(stderr, "ERROR al abrir el fichero %s\n", fichero);
+    fprintf(stderr, "Error opening file: %s\n", fichero);
     exit(0);
   }
 
@@ -36,7 +36,7 @@ int alex_estado(ALex *x, int addCaracter, int(*estado)(ALex *))
   if (addCaracter) {
     if (x->iNombre >= TOKEN_MAX_LENGTH) {
       int columna = x->iColumna - x->iNombre;
-      fprintf(stderr, "Token demasiado largo en %d:%d : %s...\n",
+      fprintf(stderr, "Token too long at %d:%d : %s...\n",
               x->iFila, columna, x->token.nombre);
       exit(0);
     }
@@ -52,7 +52,7 @@ int alex_estado(ALex *x, int addCaracter, int(*estado)(ALex *))
 
 int alex_error(ALex *x)
 {
-  fprintf(stderr, "Caracter no permitido en %d:%d : %c\n",
+  fprintf(stderr, "Character not allowed at %d:%d : %c\n",
           x->iFila, x->iColumna, x->c);
   exit(0); // comentar si queremos seguir comprobando...
   return 0;

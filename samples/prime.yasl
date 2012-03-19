@@ -10,9 +10,9 @@ while(n < 100)
     end
 
     if(d * d > n)
-        print(n +" es primo!")
+        print(n +" is prime. ")
     else
-        print(n +" no")
+        print(n +" isn't prime. ")
     end
 
     n := n + 1
