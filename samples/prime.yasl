@@ -1,0 +1,19 @@
+integer n
+integer d
+n := 2
+
+while(n < 100)
+    d := 2
+
+    while(d * d <= n && n / d * d != n)
+        d := d + 1
+    end
+
+    if(d * d > n)
+        print(n +" es primo!")
+    else
+        print(n +" no")
+    end
+
+    n := n + 1
+end
