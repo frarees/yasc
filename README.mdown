@@ -8,7 +8,7 @@ yasc is cross-platform. Written in C (C99 compilant).
 yasl grammar
 ------------
 
-`.yasl` files are just ascii text files. Currently there's no documentation about yasl grammar, so why you don't just play with the samples? ;)
+`.yasl` files are just ascii text files. Currently there's no documentation about yasl grammar, so why don't you just play with the samples? ;)
 
 Source code documentation
 -------------------------
@@ -21,3 +21,8 @@ Building yasc
 CMake scripts are supplied. You can refer to CMake's documentation. Here's a simple usage for UNIX folks (I hope it doesn't feel that much cryptic): 
 
 `mkdir -p <my-build-path> && cd <my-build-path> && cmake <path-to-yasc> && make`
+
+Contribute
+----------
+
+Feel free to fork the project, do your stuff, and request a pull. I'd be grateful!
